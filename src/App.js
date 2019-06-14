@@ -3,17 +3,16 @@ import './App.css';
 
 class App extends React.Component {
   
-  constructor(props){
-    super(props);
-    this.state = {
-      currentStep : 0
-    }
+  state = {
+    currentStep: 0,
+    
   }
 
   render(){
     return(
       <div className="App">
-
+        <p> this is some stuff </p>
+        <p> the current step is {this.state.currentStep}</p>
       </div>
     )
   }
