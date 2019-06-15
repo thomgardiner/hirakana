@@ -15,29 +15,31 @@ const App = props => {
   const [currentStep, setStep] = useState('start');
   const [dataSet, setDataSet] = useState('default');
   const [studyObj, setStudyObj] = useState([]);
-  const [studyValues, setStudyValue] = useState([])
+  const [studyValues, setStudyValue] = useState([]);
+  const [message, updateMessage] = useState('');
+  const [repeatStudy, setRepeat] = useState(false);
+
 
 const setData = (data) => {
+
+  let input;    
   if(data === 'hiragana'){
-    setDataSet(hiraganaImport);
-    hiraganaImport.forEach(function(item){
-      studyValues.push(false);
-    })
-
-    let tempArr = studyValues.splice(0);
-    setStudyValue(tempArr);
+      input = hiraganaImport;
   }
-
   else if(data === 'katakana'){
-    setDataSet(katakanaImport);
-    katakanaImport.forEach(function(item){
-      studyValues.push(false);
-    })
-
-    let tempArr = studyValues.splice(0);
-    setStudyValue(tempArr);
+      input = katakanaImport;
   }
-}
+
+  setDataSet(input);
+  input.forEach(function(item){
+    studyValues.push(false);
+  })
+
+  let tempArr = studyValues.splice(0);
+  setStudyValue(tempArr);
+
+} 
+
 
 const setStudyValues = (data) => {
     setStudyValue(data);
@@ -52,9 +54,15 @@ const generateDeck = () => {
     }
   })
   setStudyObj(tempObj);
-  setStep('study');
+  if(tempObj.length > 0){
+    updateMessage('');
+    setStep('study');
+  }
+  else{
+    updateMessage('You need to choose at least one set')
+  }
+  
 }
-
   return (
       <div className="App">
         {/* OPTIONS */}
@@ -64,8 +72,10 @@ const generateDeck = () => {
           {dataSet !== "default" && currentStep === 'start' ? 
             <div>
               <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
-            
-            <div className="Row">
+              <div>
+               {message}
+              </div>           
+            <div>
                 <Button variant="contained" color="primary" onClick={generateDeck}> Study! </Button> 
               </div>
             </div> : null
@@ -74,7 +84,7 @@ const generateDeck = () => {
         {/* STUDY */}
         {currentStep === 'study' ? 
           <div>
-            <StudyWindow deck={studyObj.flat().sort(function(a, b){return 0.5 - Math.random()})} />
+            <StudyWindow repeat={repeatStudy} deck={studyObj.flat().sort(function(a, b){return 0.5 - Math.random()})} />
             <Button id="backButton" variant="contained" color="primary" onClick={() => setStep('start')}> Back </Button>
           </div> : null}
         </div>

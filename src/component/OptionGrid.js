@@ -30,8 +30,6 @@ const OptionGrid= props => {
         props.setStudyValues(tempArr);
     }
 
-    //<input key={index + '-input'} type="checkbox" checked={props.studyValues[index]} onChange={() => handleCheck(row, index)}></input>
-
    return(
       <div className="options-grid">
         {props.data.map((row, index) => (
@@ -45,7 +43,7 @@ const OptionGrid= props => {
             </div>
         </div>
         ))}
-            <div className="Row" id="gridButtons">
+            <div id="gridButtons">
                 <Button variant="contained" color="primary" onClick={() => selectAll()}> Select All </Button>
                 <Button variant="contained" color="primary" onClick={() => clearAll()}> Clear All </Button>
             </div>

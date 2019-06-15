@@ -7,40 +7,50 @@ import './StudyWindow.css';
 const StudyWindow = props => {
 
     const [toSeePile, updateToSee] = useState([...props.deck]);
-    //const [toSeePile, updateToSee] = useState(props.deck.sort(function(a, b){return 0.5 - Math.random()}));
     const [currentAnswer, setCurrentAnswer] = useState();
     const [currentCharacter, setCurrentCharacter] = useState(toSeePile[0]);
     const [currentScore, setScore] = useState(0);
     const [itemsSeen, setItemsSeen] = useState(0);
 
+    let lastCard = props.deck[props.deck.length-1];
+
     const handleTextChange = (event) => {
-        console.log(event.target.value);
         setCurrentAnswer(event.target.value.toLowerCase());
     }
 
     const handleEnter = (event) => {
         if(event.keyCode === 13){
-            console.log("enter");
             handleSubmit();
         }
     }
 
     const handleSubmit = () => {
         if(currentAnswer === undefined){
-            console.log("input something");
             return;
         }
         else if(currentAnswer === currentCharacter.romanization){
-            console.log("correct!");
+            //correct
             setScore(currentScore + 1);
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
-            toSeePile.push(toSeePile[0]);
-            toSeePile.shift();
-            setCurrentCharacter(toSeePile[0]);
+
+            //randomize order once all cards have been seen
+            if(toSeePile[0] === lastCard){
+                toSeePile.push(toSeePile[0]);
+                toSeePile.shift();
+                toSeePile.sort(function(a, b){return 0.5 - Math.random()});
+                setCurrentCharacter(toSeePile[0]);
+                lastCard = props.deck[props.deck.length-1]; 
+            }
+            else{ 
+            //otherwise just move the card to the back of the array
+                toSeePile.push(toSeePile[0]);
+                toSeePile.shift();
+                setCurrentCharacter(toSeePile[0]);
+            }
         }
         else{
-            console.log("false");
+            //false
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
             toSeePile.push(toSeePile[0]);

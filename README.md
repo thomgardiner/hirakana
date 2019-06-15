@@ -1,1 +1,1 @@
-A simple Hiragana / Katakana study app to practice React hooks. 
+A simple Hiragana / Katakana study app made with fuctional components and MaterialUI.
