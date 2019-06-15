@@ -1,0 +1,19 @@
+#characterDisplay{
+    font-size: 45px;
+}
+
+.backButton{
+    margin-top: 10px;
+}
+
+#submitButton{
+    margin-top: 10px;
+}
+
+#answerBox{
+    height: 29px;
+    width: 100px;
+    font-size: 18px;
+    radius: 5px;
+    text-align: center;
+}

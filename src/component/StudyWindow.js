@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
+import Button from '@material-ui/core/Button';
+
+import './StudyWindow.css';
 
 
 const StudyWindow = props => {
 
-    const [toSeePile, updateToSee] = useState(props.deck);
+    const [toSeePile, updateToSee] = useState([...props.deck]);
     //const [toSeePile, updateToSee] = useState(props.deck.sort(function(a, b){return 0.5 - Math.random()}));
     const [currentAnswer, setCurrentAnswer] = useState();
     const [currentCharacter, setCurrentCharacter] = useState(toSeePile[0]);
@@ -23,7 +26,6 @@ const StudyWindow = props => {
     }
 
     const handleSubmit = () => {
-
         if(currentAnswer === undefined){
             console.log("input something");
             return;
@@ -33,6 +35,7 @@ const StudyWindow = props => {
             setScore(currentScore + 1);
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
+            toSeePile.push(toSeePile[0]);
             toSeePile.shift();
             setCurrentCharacter(toSeePile[0]);
         }
@@ -40,6 +43,7 @@ const StudyWindow = props => {
             console.log("false");
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
+            toSeePile.push(toSeePile[0]);
             toSeePile.shift();
             setCurrentCharacter(toSeePile[0]);
         }
@@ -50,14 +54,15 @@ const StudyWindow = props => {
           <div>
               <p>Score: {currentScore} / {itemsSeen} </p>
           </div>
-          <div className="characterDisplay">
-              {currentCharacter ? currentCharacter.character : <div>Complete!</div>}
+          <div>
+              <div id="characterDisplay">{currentCharacter.character}</div>
           </div>
           <div>
               {currentCharacter ? 
                     <div>
-                        <input id="answerBox" type="text" value={currentAnswer} onKeyDown={handleEnter} onChange={handleTextChange}></input>
-                    <button onClick={handleSubmit}>Submit</button>
+                        <input autoComplete="off" id="answerBox" type="text" value={currentAnswer} onKeyDown={handleEnter} onChange={handleTextChange}></input>
+                        <br></br>
+                        <Button id="submitButton" variant="contained" color="primary" onClick={handleSubmit}> Submit </Button>
                     </div> : null}
           </div>
       </div>

@@ -1,14 +1,20 @@
 .options-grid{
-    width: 400px;
+    width: 50%;
     height: 200px;
     margin: auto;
 }
 
-.characterContainer{
+.checkBox{
+
+    padding: 0px;
+
 }
 
+
 .container{
-    height: 160px;
+    height: 180px;
     float: left;
+    margin-top: 10px;
     margin-right: 5px;
 }
+

@@ -5,15 +5,15 @@ import StudyWindow from './component/StudyWindow'
 import hiraganaImport from './data/hiragana_new';
 import katakanaImport from './data/katakana_new';
 
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 import './App.css';
 
 const App = props => {
   
   const [currentStep, setStep] = useState('start');
-  //const [currentScore, setScore] = useState(0);
-  //const [totalSeen, setSeen] = useState(0);
   const [dataSet, setDataSet] = useState('default');
- // const [totalQuestions, setTotal] = useState('0');
   const [studyObj, setStudyObj] = useState([]);
   const [studyValues, setStudyValue] = useState([])
 
@@ -63,17 +63,21 @@ const generateDeck = () => {
           {/* LOAD GRID ONCE DATA SET IS CHOSEN */}
           {dataSet !== "default" && currentStep === 'start' ? 
             <div>
-            <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
-            <button onClick={generateDeck}> Study! </button> 
+              <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
+            
+            <div className="Row">
+                <Button variant="contained" color="primary" onClick={generateDeck}> Study! </Button> 
+              </div>
             </div> : null
           } 
         
         {/* STUDY */}
         {currentStep === 'study' ? 
-        <StudyWindow deck={studyObj.flat().sort(function(a, b){return 0.5 - Math.random()})} />: null}
-        <div>
-          </div>
-      </div>
+          <div>
+            <StudyWindow deck={studyObj.flat().sort(function(a, b){return 0.5 - Math.random()})} />
+            <Button id="backButton" variant="contained" color="primary" onClick={() => setStep('start')}> Back </Button>
+          </div> : null}
+        </div>
   )
   
 }
