@@ -1,11 +1,14 @@
 .options-grid{
-    width: 60%;
+    width: 50%;
     height: 50%;
     margin: auto;
 }
 
-.character-square{
-    width: 25px;
-    height: 25px;
-    color: red;
+.characterContainer{
+}
+
+.container{
+    height: 160px;
+    float: left;
+    margin-right: 5px;
 }
