@@ -1,6 +1,8 @@
 import React, {useState, useContext, useReducer} from 'react';
 import OptionWindow from './component/OptionWindow'
 import OptionGrid from './component/OptionGrid'
+import StudyWindow from './component/StudyWindow'
+
 import hiraganaImport from './data/hiragana_new';
 import katakanaImport from './data/katakana_new';
 
@@ -31,6 +33,7 @@ const App = props => {
   const [dataSet, setDataSet] = useState('default');
   const [totalQuestions, setTotal] = useState('0');
   const [studyObj, setStudyObj] = useState([]);
+  const [endlessMode, setEndless] = useState(false);
   const [studyValues, setStudyValue] = useState([
     true,
     false,
@@ -63,6 +66,15 @@ const setStudyValues = (data) => {
     setStudyValue(data);
 }
 
+const handleEndless = () => {
+    let val = !endlessMode;
+    setEndless(val);
+}
+
+const handleStudy = () => {
+  setStep('study');
+}
+
 const generateDeck = () => {
   setStudyObj([]);
   let tempObj = [];
@@ -72,16 +84,17 @@ const generateDeck = () => {
     }
   })
   setStudyObj(tempObj);
+  handleStudy();
 }
+
 
   return (
       <div className="App">
-        {studyObj.length + " is the length"}
         {/* OPTIONS */}
         {currentStep === 'start' ? 
         <OptionWindow setData={setData} /> : null}
           {/* LOAD GRID ONCE DATA SET IS CHOSEN */}
-          {dataSet !== "default" ? 
+          {dataSet !== "default" && currentStep === 'start' ? 
             <div>
             <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
             <button onClick={generateDeck}> Study! </button> 
@@ -90,7 +103,7 @@ const generateDeck = () => {
         
         {/* STUDY */}
         {currentStep === 'study' ? 
-        <p> You're studying </p>: null}
+        <StudyWindow deck={studyObj.flat()} />: null}
         <div>
           </div>
       </div>
