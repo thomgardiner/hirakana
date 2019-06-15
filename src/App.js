@@ -1,10 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useReducer} from 'react';
 import OptionWindow from './component/OptionWindow'
 import OptionGrid from './component/OptionGrid'
 import hiraganaImport from './data/hiragana_new';
 import katakanaImport from './data/katakana_new';
 
 import './App.css';
+
+
+
+function appReducer(state, action){
+  switch (action.type){
+    case 'add': {
+      return 'something';
+    }
+    case 'something' : {
+      return 'something';
+    }
+    default:{
+      return state;
+    }
+  }
+}
+
 
 const App = props => {
   
@@ -14,6 +31,24 @@ const App = props => {
   const [dataSet, setDataSet] = useState('default');
   const [totalQuestions, setTotal] = useState('0');
   const [studyObj, setStudyObj] = useState([]);
+  const [studyValues, setStudyValue] = useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+])
+
 
 const setData = (data) => {
   if(data === 'hiragana'){
@@ -29,6 +64,16 @@ const setStudyObject = (data) => {
     setStudyObj(data);
 }
 
+const generateDeck = () => {
+  setStudyObj([]);
+  studyValues.forEach(function(item, index){
+    if(item){
+      studyObj.push(dataSet[index]);
+    }
+  })
+  console.log(studyObj.flat());
+}
+
   return (
       <div className="App">
         {/* OPTIONS */}
@@ -37,8 +82,8 @@ const setStudyObject = (data) => {
           {/* LOAD GRID ONCE DATA SET IS CHOSEN */}
           {dataSet !== "default" ? 
             <div>
-            <OptionGrid data={dataSet} setStudy={setStudyObject} /> 
-            <button> Study! </button> 
+            <OptionGrid data={dataSet} setStudyValues={setStudyObject} studyValues={studyValues}/> 
+            <button onClick={generateDeck}> Study! </button> 
             </div> : null
           } 
         
