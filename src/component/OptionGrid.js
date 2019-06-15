@@ -6,15 +6,10 @@ const OptionGrid= props => {
 
     const [studyObj, setStudyObj] = useState([]);
 
-
     const handleCheck = (input, index) => {
-        console.log(input + " is the input");
-        console.log(index + " is the index");
-
         props.studyValues[index] = !props.studyValues[index];
-        //setStudyValue(studyValues[index] = !studyValues[index]);
-       // setStudyValue(studyValues);
-
+        let tempArr = props.studyValues.slice(0);
+        props.setStudyValues(tempArr);
     }
 
    return(

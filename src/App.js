@@ -53,36 +53,37 @@ const App = props => {
 const setData = (data) => {
   if(data === 'hiragana'){
     setDataSet(hiraganaImport);
-    console.log(hiraganaImport);
   }
   else if(data === 'katakana'){
     setDataSet(katakanaImport);
   }
 }
 
-const setStudyObject = (data) => {
-    setStudyObj(data);
+const setStudyValues = (data) => {
+    setStudyValue(data);
 }
 
 const generateDeck = () => {
   setStudyObj([]);
+  let tempObj = [];
   studyValues.forEach(function(item, index){
     if(item){
-      studyObj.push(dataSet[index]);
+      tempObj.push(dataSet[index]);
     }
   })
-  console.log(studyObj.flat());
+  setStudyObj(tempObj);
 }
 
   return (
       <div className="App">
+        {studyObj.length + " is the length"}
         {/* OPTIONS */}
         {currentStep === 'start' ? 
         <OptionWindow setData={setData} /> : null}
           {/* LOAD GRID ONCE DATA SET IS CHOSEN */}
           {dataSet !== "default" ? 
             <div>
-            <OptionGrid data={dataSet} setStudyValues={setStudyObject} studyValues={studyValues}/> 
+            <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
             <button onClick={generateDeck}> Study! </button> 
             </div> : null
           } 
