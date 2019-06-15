@@ -12,6 +12,14 @@ const OptionGrid= props => {
         props.setStudyValues(tempArr);
     }
 
+    const selectAll = () => {
+        props.studyValues.forEach(function(item, index){
+            props.studyValues[index] = true;
+        })
+        let tempArr = props.studyValues.slice(0);
+        props.setStudyValues(tempArr);
+    }
+
    return(
       <div className="options-grid">
         {props.data.map((row, index) => (
@@ -25,6 +33,10 @@ const OptionGrid= props => {
             </div>
         </div>
         ))}
+            <div>
+                <button onClick={() => selectAll()}> Select All </button>
+                <button> Clear All </button>
+            </div>
       </div>
     )
   
