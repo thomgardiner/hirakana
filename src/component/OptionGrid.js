@@ -33,7 +33,7 @@ const OptionGrid= props => {
     //<input key={index + '-input'} type="checkbox" checked={props.studyValues[index]} onChange={() => handleCheck(row, index)}></input>
 
    return(
-      <div className="options-grid Row">
+      <div className="options-grid">
         {props.data.map((row, index) => (
             <div key={index + '_container'}className="container">
                 <Checkbox className="checkbox" key={index + '-input'} type="checkbox" checked={props.studyValues[index]} onChange={() => handleCheck(row, index)} />
