@@ -5,34 +5,41 @@ const StudyWindow = props => {
 
     const [toSeePile, updateToSee] = useState(props.deck);
     //const [toSeePile, updateToSee] = useState(props.deck.sort(function(a, b){return 0.5 - Math.random()}));
-    const [seenPile, updateSeen] = useState([]);
     const [currentAnswer, setCurrentAnswer] = useState();
     const [currentCharacter, setCurrentCharacter] = useState(toSeePile[0]);
+    const [currentScore, setScore] = useState(0);
+    const [itemsSeen, setItemsSeen] = useState(0);
 
     const handleTextChange = (event) => {
         console.log(event.target.value);
         setCurrentAnswer(event.target.value.toLowerCase());
     }
 
+    const handleEnter = (event) => {
+        if(event.keyCode === 13){
+            console.log("enter");
+            handleSubmit();
+        }
+    }
+
     const handleSubmit = () => {
 
-        console.log(currentAnswer);
-
         if(currentAnswer === undefined){
-            console.log('sup');
+            console.log("input something");
             return;
         }
         else if(currentAnswer === currentCharacter.romanization){
             console.log("correct!");
+            setScore(currentScore + 1);
+            setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
-            seenPile.push(toSeePile[0]);
             toSeePile.shift();
             setCurrentCharacter(toSeePile[0]);
         }
         else{
             console.log("false");
+            setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
-            toSeePile.push(toSeePile[0]);
             toSeePile.shift();
             setCurrentCharacter(toSeePile[0]);
         }
@@ -40,13 +47,16 @@ const StudyWindow = props => {
 
     return(
       <div className="study-window">
+          <div>
+              <p>Score: {currentScore} / {itemsSeen} </p>
+          </div>
           <div className="characterDisplay">
               {currentCharacter ? currentCharacter.character : <div>Complete!</div>}
           </div>
           <div>
               {currentCharacter ? 
                     <div>
-                        <input type="text" value={currentAnswer} onChange={handleTextChange}></input>
+                        <input id="answerBox" type="text" value={currentAnswer} onKeyDown={handleEnter} onChange={handleTextChange}></input>
                     <button onClick={handleSubmit}>Submit</button>
                     </div> : null}
           </div>
