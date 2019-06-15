@@ -21,11 +21,6 @@ const state = {
       <div className="options-window">
         <button onClick={() => handleHiragana()}> Hiragana </button>
         <button onClick={() => handleKatakana()}> Katakana </button>
-      
-        <div>
-           
-        </div>
-      
       </div>
     )
   
