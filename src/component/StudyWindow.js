@@ -11,6 +11,7 @@ const StudyWindow = props => {
     const [currentCharacter, setCurrentCharacter] = useState(toSeePile[0]);
     const [currentScore, setScore] = useState(0);
     const [itemsSeen, setItemsSeen] = useState(0);
+    const [prevAnswer, setPreviousAnswer] = useState('');
 
     let lastCard = props.deck[props.deck.length-1];
 
@@ -33,6 +34,7 @@ const StudyWindow = props => {
             setScore(currentScore + 1);
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
+            setPreviousAnswer('');
 
             //randomize order once all cards have been seen
             if(toSeePile[0] === lastCard){
@@ -53,6 +55,7 @@ const StudyWindow = props => {
             //false
             setItemsSeen(itemsSeen + 1);
             setCurrentAnswer('');
+            setPreviousAnswer(toSeePile[0].romanization);
             toSeePile.push(toSeePile[0]);
             toSeePile.shift();
             setCurrentCharacter(toSeePile[0]);
@@ -67,6 +70,9 @@ const StudyWindow = props => {
           <div>
               <div id="characterDisplay">{currentCharacter.character}</div>
           </div>
+          <div>
+              {prevAnswer !== '' ? <p>Previous Answer: {prevAnswer} </p> : null }
+            </div>
           <div>
               {currentCharacter ? 
                     <div>

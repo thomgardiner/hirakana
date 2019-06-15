@@ -31,7 +31,8 @@ const setData = (data) => {
   }
 
   setDataSet(input);
-  input.forEach(function(item){
+  
+  input.forEach(function(item, index){
     studyValues.push(false);
   })
 
