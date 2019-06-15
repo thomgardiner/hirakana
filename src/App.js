@@ -1,21 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
+import OptionWindow from './component/OptionWindow'
+import OptionGrid from './component/OptionGrid'
+import hiraganaImport from './data/hiragana';
+import katakanaImport from './data/katakana';
+
 import './App.css';
 
-class App extends React.Component {
+const App = props => {
   
-  state = {
-    currentStep: 0,
-    
+  const [currentStep, setStep] = useState('start');
+  const [currentScore, setScore] = useState(0);
+  const [totalSeen, setSeen] = useState(0);
+  const [dataSet, setDataSet] = useState('default');
+  const [totalQuestions, setTotal] = useState('0');
+
+  const setData = (data) => {
+    setDataSet(data);
   }
 
-  render(){
-    return(
+  const groupBy = (amountOfItemsPerGroup, items) => {
+    var groups = [], 
+      group, 
+      total = items.length;
+    for (var i=0; i < total; i += amountOfItemsPerGroup) {
+      group = items.slice(i, i+amountOfItemsPerGroup);
+      groups.push(group);
+    }
+    return groups;
+}
+
+const hiragana = groupBy(5, hiraganaImport);
+const katakana = groupBy(5, katakanaImport);
+
+  return (
       <div className="App">
-        <p> this is some stuff </p>
-        <p> the current step is {this.state.currentStep}</p>
+        {/* OPTIONS */}
+        {currentStep === 'start' ? 
+        <OptionWindow setData={setData} /> : null}
+          {dataSet !== "default" ? 
+            <OptionGrid /> : null
+          } 
+
+        
+        {/* STUDY */}
+        {currentStep === 'study' ? 
+        <p> You're studying </p>: null}
+        <div>
+          </div>
       </div>
-    )
-  }
+  )
+  
+
 }
 
 export default App;
