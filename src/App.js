@@ -18,6 +18,7 @@ const App = props => {
 const setData = (data) => {
   if(data === 'hiragana'){
     setDataSet(hiraganaImport);
+    console.log(hiraganaImport);
   }
   else if(data === 'katakana'){
     setDataSet(katakanaImport);
