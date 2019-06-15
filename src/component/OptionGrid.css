@@ -1,0 +1,11 @@
+.options-grid{
+    width: 60%;
+    height: 50%;
+    margin: auto;
+}
+
+.character-square{
+    width: 25px;
+    height: 25px;
+    color: red;
+}

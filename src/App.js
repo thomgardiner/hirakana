@@ -14,10 +14,6 @@ const App = props => {
   const [dataSet, setDataSet] = useState('default');
   const [totalQuestions, setTotal] = useState('0');
 
-  const setData = (data) => {
-    setDataSet(data);
-  }
-
   const groupBy = (amountOfItemsPerGroup, items) => {
     var groups = [], 
       group, 
@@ -32,13 +28,23 @@ const App = props => {
 const hiragana = groupBy(5, hiraganaImport);
 const katakana = groupBy(5, katakanaImport);
 
+const setData = (data) => {
+  if(data === 'hiragana'){
+    setDataSet(hiragana);
+  }
+  else if(data === 'katakana'){
+    setDataSet(katakana);
+  }
+}
+
+
   return (
       <div className="App">
         {/* OPTIONS */}
         {currentStep === 'start' ? 
         <OptionWindow setData={setData} /> : null}
           {dataSet !== "default" ? 
-            <OptionGrid /> : null
+            <OptionGrid data={dataSet} /> : null
           } 
 
         
