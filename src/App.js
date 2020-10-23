@@ -48,22 +48,26 @@ const setStudyValues = (data) => {
 
 const generateDeck = () => {
   setStudyObj([]);
+
   let tempObj = [];
+
   studyValues.forEach(function(item, index){
     if(item){
       tempObj.push(dataSet[index]);
     }
   })
+
   setStudyObj(tempObj);
   if(tempObj.length > 0){
     updateMessage('');
     setStep('study');
   }
   else{
-    updateMessage('You need to choose at least one set')
+    updateMessage('You need to choose at least one character set')
   }
   
 }
+
   return (
       <div className="App">
         {/* OPTIONS */}
@@ -73,7 +77,7 @@ const generateDeck = () => {
           {dataSet !== "default" && currentStep === 'start' ? 
             <div>
               <OptionGrid data={dataSet} setStudyValues={setStudyValues} studyValues={studyValues}/> 
-              <div>
+              <div class="message">
                {message}
               </div>           
             <div>
