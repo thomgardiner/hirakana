@@ -1,0 +1,16 @@
+.btn-row{
+    margin: auto;
+    width: 250px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.options-message{
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.options-window{
+    margin-top: 30px;
+
+}

@@ -19,7 +19,6 @@ const App = props => {
   const [message, updateMessage] = useState('');
   const [repeatStudy, setRepeat] = useState(false);
 
-
 const setData = (data) => {
 
   let input;    
